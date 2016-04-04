@@ -1,7 +1,7 @@
 package com.shop.bean.vo;
 
 import com.shop.bean.BaseObject;
-import com.shop.core.mybatis.enums.GoodsStatusEnum;
+import com.shop.core.mybatis.GoodsStatusEnum;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;

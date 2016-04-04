@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>i美妆 | 订单管理</title>
+    <title>i美妆 | 我的购物车</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
     <link rel="shortcut icon" href="/images/mz.png"/>
@@ -15,13 +15,19 @@
         <thead>
         <tr style="border-top: 1px solid #C1DAD7">
             <td style="border-left: 1px solid #C1DAD7">ID</td>
-            <td>订单总额</td>
-            <td>快递状态</td>
+            <td>商品ID</td>
+            <td>商品名称</td>
+            <td>单价</td>
+            <td>购买数量</td>
+            <td>总价</td>
             <td>创建时间</td>
+            <td>付款</td>
+            <td>编辑</td>
             <td>删除</td>
         </tr>
         </thead>
-        <tbody id="user-order-tbody"></tbody>
+        <tbody id="user-cart-tbody"></tbody>
+        <tfoot id="user-cart-tfoot"></tfoot>
     </table>
 </div>
 <div id="pageArea" style="margin-top: 4%"></div>
@@ -29,6 +35,6 @@
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
-<script type="text/javascript" src="/js/user_order.js"></script>
+<script type="text/javascript" src="/js/user_cart.js"></script>
 </body>
 </html>

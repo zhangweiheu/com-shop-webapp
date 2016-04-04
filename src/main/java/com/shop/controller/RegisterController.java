@@ -2,8 +2,10 @@ package com.shop.controller;
 
 import com.shop.annotation.NotNeedLogin;
 import com.shop.bean.vo.UserVo;
+import com.shop.core.alipay.demo.PassUtil;
 import com.shop.core.model.User;
 import com.shop.core.service.UserService;
+import com.shop.core.util.PhoneNumberUtil;
 import com.shop.core.util.PhotoUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +51,19 @@ public class RegisterController {
                 user.setAvatar(PhotoUploadUtil.uploadPhoto(userVo.getFile(), request, uid));
             }
             userService.updateUser(user);
-            modelAndView.getModelMap().addAttribute("msg", "您已经成功注册，请登录");
+            String msg = "您已经成功注册，请登录";
+            if (null != user.getPhone() && PhoneNumberUtil.isMobileNum(user.getPhone())) {
+                PassUtil passUtil = new PassUtil();
+                if (passUtil.addPassInstance(user.getPhone())) {
+                    msg = "您已经成功注册,并且i美妆送您一次免单优惠券，详查支付宝，请登录使用！";
+                }
+            }
+
+            modelAndView.getModelMap().addAttribute("msg", msg);
             modelAndView.setViewName("login");
         } else {
             modelAndView.addObject("user", userVo);
             modelAndView.setViewName("register");
-        }
-        return modelAndView;
+        } return modelAndView;
     }
-
-
 }

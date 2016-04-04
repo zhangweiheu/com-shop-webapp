@@ -2,14 +2,14 @@ package com.shop.controller;
 
 import com.shop.annotation.AdminOnly;
 import com.shop.annotation.LoginRequired;
+import com.shop.bean.UserHolder;
 import com.shop.bean.vo.GoodsVo;
 import com.shop.bean.vo.UserVo;
 import com.shop.core.model.Goods;
-import com.shop.core.model.Order;
+import com.shop.core.model.OrderForm;
 import com.shop.core.model.User;
 import com.shop.core.service.GoodsService;
 import com.shop.core.service.OrderService;
-import com.shop.core.service.PassService;
 import com.shop.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +40,6 @@ public class SystemController {
     @Autowired
     OrderService orderService;
 
-    @Autowired
-    PassService passService;
-
     /**
      * 用户
      */
@@ -62,6 +59,10 @@ public class SystemController {
             BeanUtils.copyProperties(user, userVo);
             userVo.setUpdateAt(null);
             userVo.setCreateAt(null);
+            if (UserHolder.getInstance().getUser().getIsAdmin()) {
+                userVo.setDelete(user.getIsDelete());
+                userVo.setAdmin(user.getIsAdmin());
+            }
             view.addObject(userVo);
         }
         view.setViewName("edit_user");
@@ -81,7 +82,7 @@ public class SystemController {
     @RequestMapping(value = "/order/edit/{oid}", method = RequestMethod.GET)
     public ModelAndView editOrder(@PathVariable("oid") int oid) {
         ModelAndView view = new ModelAndView();
-        Order order = orderService.findOrderByOId(oid);
+        OrderForm order = orderService.findOrderByOId(oid);
 
         view.setViewName("edit_order");
         return view;

@@ -1,8 +1,9 @@
 package com.shop.bean.vo;
 
 import com.shop.bean.BaseObject;
+import com.shop.core.model.Goods;
 import com.shop.core.model.OrderDetail;
-import com.shop.core.mybatis.enums.ExpressStatusEnum;
+import com.shop.core.mybatis.ExpressStatusEnum;
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class OrderVo extends BaseObject {
     /**
      * 用户id
      */
-    private Integer userId;
+    private Integer uid;
 
     /**
      * 订单金额
@@ -45,6 +46,11 @@ public class OrderVo extends BaseObject {
      */
     private Date updateAt;
 
+    private String serialNumber;
+
+    private List<Goods> goodsList;
+
+    private String ids;
 
     public Integer getId() {
         return id;
@@ -54,12 +60,12 @@ public class OrderVo extends BaseObject {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public Double getOrderPrice() {
@@ -100,5 +106,29 @@ public class OrderVo extends BaseObject {
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
     }
 }

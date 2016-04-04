@@ -15,9 +15,9 @@
     <script>
         function goToTargetPage(tarVal) {
             if (tarVal == 1) location.href = '/index';
-            if (tarVal == 2) location.href = '/cart';
-            if (tarVal == 3) location.href = '/order';
-            if (tarVal == 4) location.href = '/user';
+            if (tarVal == 2) location.href = '/user/cart';
+            if (tarVal == 3) location.href = '/user/order';
+            if (tarVal == 4) location.href = '/user/user';
             if (tarVal == 5) location.href = '/system/order';
             if (tarVal == 6) location.href = '/system/user';
             if (tarVal == 7) location.href = '/system/goods';

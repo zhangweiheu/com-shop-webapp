@@ -38,7 +38,7 @@ public class UserVo extends BaseObject {
     /**
      * 积分
      */
-    private Integer integration;
+    private Double integration;
 
     /**
      * 余额
@@ -123,11 +123,11 @@ public class UserVo extends BaseObject {
         isDelete = delete;
     }
 
-    public Integer getIntegration() {
+    public Double getIntegration() {
         return integration;
     }
 
-    public void setIntegration(Integer integration) {
+    public void setIntegration(Double integration) {
         this.integration = integration;
     }
 

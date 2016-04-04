@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/order/list",
+        url: "/api/user/cart/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
@@ -39,17 +39,14 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
-                            tbody += "<td width='50px'>" + elem.id + "</td>";
-                            tbody += "<td width='50px'>" + elem.userId + "</td>";
-                            tbody += "<td width='50px'>" + elem.mongoPaperId + "</td>";
-                            tbody += "<td width='150px'>" + elem.paperType + "</td>";
-                            tbody += "<td width='50px'>" + elem.difficulty + "</td>";
-                            tbody += "<td width='50px'>" + elem.totalPoints + "</td>";
-                            tbody += "<td width='50px'>" + elem.score + "</td>";
-                            tbody += "<td width='95px'>" + elem.status + "</td>";
-                            tbody += "<td>" + elem.tagList + "</td>";
-                            tbody += "<td width='50px'>" + elem.totalRight + "</td>";
+                            tbody += "<td width='50px' style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
+                            tbody += "<td width='50px'>" + elem.goodsId + "</td>";
+                            tbody += "<td>" + elem.properties.goodsName + "</td>";
+                            tbody += "<td width='50px'>" + elem.goodsPrice + "</td>";
+                            tbody += "<td>" + elem.goodsCount + "</td>";
+                            tbody += "<td width='50px'>" + elem.totalPrice + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
+                            tbody += "<td width='50px'><input btn-type='pay' name='pay' type='checkbox' value='"+elem.id +"'></td>";
                             tbody += "<td width='50px'><a btn-type=\"edit\" pid=\""+elem.id +"\" href=\"#\">编辑</a></td>";
                             tbody += "<td width='50px'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" pid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";
@@ -58,8 +55,8 @@ function buildTable(page, pageSize) {
                             tbody += "<tr></tr>";
                         }
                     }
-                    $("#system-order-tbody").html(tbody)
-                    ;
+                    $("#user-cart-tbody").html(tbody)
+                    $("#user-cart-tfoot").html("<span style='position: relative;top: 55px;left: 1000%'>优惠码：</span><input id='serial-number' type='number' style='position: relative;left: 1100%;width: 400%;margin-top: 30px' required><input id='pay-btn' style='background-color:#fff;color: #0f0f0f;font-size: 15px;position: relative;left: 1200%;margin-top: 30px;width: 200%' type='button' value='支付' onclick='pay()'>");
                     buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
                 }
             } else {
@@ -69,26 +66,6 @@ function buildTable(page, pageSize) {
     });
 }
 
-function edit_tmpl(pid) {
-    $.ajax({
-        method: "PUT",
-        url: "/api/order/0/" + pid,
-        async: true,
-        success: function (data) {
-            if (data.code == 0) {
-                layer.alert(data.data, {
-                    icon: 1, offset: '150px', end: function () {
-                        location.reload(true);
-                    }
-                });
-            } else {
-                layer.alert(data.msg, {icon: 11, offset: '150px'})
-            }
-        }
-    });
-
-}
-
 $(function () {
     var page = $("#page").val();
     var pageSize = $("#pageSize").val();
@@ -96,8 +73,8 @@ $(function () {
     buildTable(page, pageSize);
 
     $(document).delegate("a[btn-type='edit']", "click", function () {
-        var pid = $(this)[0].getAttribute("pid");
-        edit_tmpl(pid);
+        var qid = $(this)[0].getAttribute("pid");
+        edit_tmpl(qid);
     });
 
     $('#tmpl-select').on('change', function () {
@@ -107,6 +84,22 @@ $(function () {
         buildTable(page, pageSize);
     });
 });
+
+
+function edit_tmpl(qid) {
+    layer.open({
+        type: 2,
+        title: '编辑商品',
+        shadeClose: true,
+        shade: 0.5,
+        content: '/user/cart/edit/' + qid,
+        area: ['70%', '80%'],
+        end: function () {
+            buildTable($('#page').val(), $('#pageSize').val());
+        }
+    });
+}
+
 function deleteRecord(id) {
     layer.confirm('确认删除？', {
         icon: 4, offset: '150px', yes: function () {
@@ -117,11 +110,47 @@ function deleteRecord(id) {
 function remove(id) {
     $.ajax({
         method: "DELETE",
-        url: "/api/order/" + id,
+        url: "/api/user/cart/" + id,
         async: true,
         success: function (data) {
             if (data.code == 0) {
                 layer.alert('删除成功', {
+                    icon: 1, offset: '150px', end: function () {
+                        location.reload(true);
+                    }
+                });
+            } else {
+                layer.alert(data.msg, {icon: 11, offset: '150px'})
+            }
+        }
+    });
+}
+
+function pay(){
+    var serialNumber = $("#serial-number").val().trim();
+    if(serialNumber === undefined){
+        layer.alert("优惠码不能为空", {icon: 11, offset: '150px'});
+        return
+    }
+    var id_array = new Array();
+    var inputName = "input[name=pay]:checked";
+    $(inputName.valueOf()).each(function () {
+        id_array.push($(this).val());
+    });
+    var ids = id_array.join();
+    var d = {
+        "serialNumber":serialNumber,
+        "ids":ids
+    }
+
+    $.ajax({
+        method: "POST",
+        url: "/api/user/order/",
+        data:d,
+        async: true,
+        success: function (data) {
+            if (data.code == 0) {
+                layer.alert('支付成功', {
                     icon: 1, offset: '150px', end: function () {
                         location.reload(true);
                     }

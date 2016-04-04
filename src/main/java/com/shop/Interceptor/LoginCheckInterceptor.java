@@ -62,7 +62,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 Integer uid = getUid(token);
                 if (uid != null) {
                     User user = userService.findUserByUid(uid);
-                    if (user != null && !user.getIsDelete()) {
+                    if (null != user && !user.getIsDelete()) {
                         UserHolder.getInstance().set(user);
                         return true;
                     }

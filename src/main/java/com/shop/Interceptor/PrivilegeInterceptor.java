@@ -1,7 +1,8 @@
 package com.shop.Interceptor;
 
-
 import com.shop.annotation.AdminOnly;
+import com.shop.bean.UserHolder;
+import com.shop.core.model.User;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,8 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
             HandlerMethod method = (HandlerMethod) handler;
             adminOnly = method.getMethodAnnotation(AdminOnly.class);
 
-            if (adminOnly == null){
+            if (adminOnly == null)
                 adminOnly = method.getBeanType().getAnnotation(AdminOnly.class);
-            }
         }
 
         if (adminOnly == null) {
@@ -39,16 +39,14 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        // TODO: 16/3/9
-        //        User user = UserHolder.getInstance().getUser();
-        //        if (user != null) {
-        //            if (user.getIsAdmin())
-        //                return true;
-        //            else {
-        //                return false;
-        //            }
-        //        }
-
+        User user = UserHolder.getInstance().getUser();
+        if (user != null) {
+            if (user.getIsAdmin())
+                return true;
+            else {
+                return false;
+            }
+        }
         return true;
     }
 

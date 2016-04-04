@@ -6,7 +6,7 @@
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
     <link rel="shortcut icon" href="/images/mz.png"/>
 </head>
-<body>
+<body style="background-color: #F599BE">
     #include("./navigate.vm")
 <div style="position: relative;top: 20px">
     <input type="hidden" id="page" value="$!{page}"/>
@@ -15,23 +15,20 @@
         <thead>
         <tr style="border-top: 1px solid #C1DAD7">
             <td style="border-left: 1px solid #C1DAD7">ID</td>
-            <td>订单ID</td>
-            <td>用户ID</td>
             <td>订单总额</td>
             <td>快递状态</td>
             <td>创建时间</td>
-            <td>编辑</td>
             <td>删除</td>
         </tr>
         </thead>
-        <tbody id="system-order-tbody"></tbody>
+        <tbody id="user-order-tbody"></tbody>
     </table>
 </div>
-<div id="pageArea"></div>
+<div id="pageArea" style="margin-top: 4%"></div>
 
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
-<script type="text/javascript" src="/js/system_order.js"></script>
+<script type="text/javascript" src="/js/user_order.js"></script>
 </body>
 </html>

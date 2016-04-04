@@ -45,16 +45,16 @@ function buildTable(page, pageSize) {
                             tbody += "<td>" + elem.phone + "</td>";
                             tbody += "<td>" + elem.wechat + "</td>";
                             if (!elem.delete) {
-                                tbody += "<td class='fixWid'>正常</td>";
+                                tbody += "<td>正常</td>";
                             } else {
-                                tbody += "<td class='fixWid'>已删除</td>";
+                                tbody += "<td>已删除</td>";
                             }
-                            tbody += "<td>" + elem.tagList + "</td>";
+                            tbody += "<td>" + elem.integration + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
                             if (elem.admin) {
-                                tbody += "<td class='fixWid'>管理员</td>";
+                                tbody += "<td>管理员</td>";
                             } else {
-                                tbody += "<td class='fixWid'>普通用户</td>";
+                                tbody += "<td>普通用户</td>";
                             }
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" uid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
                             tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" uid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
@@ -140,4 +140,47 @@ function remove(id) {
             }
         }
     });
+}
+
+function addPass() {
+    var phoneNumber = $("#phoneNumber").val();
+    if (!isCellphone(phoneNumber)) {
+        layer.alert("手机号不正确！", {icon: 11, offset: '150px'});
+        return false;
+    }
+    var d = {
+        "phoneNumber": phoneNumber
+    };
+    $.ajax({
+        method: "POST",
+        url: "/api/system/pass/",
+        data: d,
+        async: true,
+        success: function (data) {
+            if (data.code == 0) {
+                layer.alert('添加成功', {
+                    icon: 1, offset: '150px', end: function () {
+                        location.reload(true);
+                    }
+                });
+            } else {
+                layer.alert(data.msg, {icon: 11, offset: '150px'})
+            }
+        }
+    });
+
+}
+
+function isCellphone(str) {
+    /**
+     *@descrition:手机号码段规则
+     * 13段：130、131、132、133、134、135、136、137、138、139
+     * 14段：145、147
+     * 15段：150、151、152、153、155、156、157、158、159
+     * 17段：170、176、177、178
+     * 18段：180、181、182、183、184、185、186、187、188、189
+     *
+     */
+    var pattern = /^(13[0-9]|14[57]|15[012356789]|17[0678]|18[0-9])\d{8}$/;
+    return pattern.test(str);
 }

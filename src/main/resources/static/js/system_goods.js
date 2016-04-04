@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/system/goods",
+        url: "/api/system/goods/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
@@ -41,14 +41,14 @@ function buildTable(page, pageSize) {
                             tbody += "<tr>";
                             tbody += "<td style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
                             tbody += "<td style='width:auto'>" + elem.name + "</td>";
-                            tbody += "<td style='width:150px'>" + elem.price + "</td>";
+                            tbody += "<td>" + elem.price + "</td>";
                             tbody += "<td style='width:auto'>" + elem.remain + "</td>";
                             tbody += "<td style='width:auto'>" + elem.sellCount + "</td>";
                             tbody += "<td style='width:50px'>" + elem.discount + "</td>";
-                            tbody += "<td style='width:60px'>" + elem.status + "</td>";
-                            tbody += "<td style='width:50px'>" + elem.providerName + "</td>";
-                            tbody += "<td style='width:50px'>" + elem.providerPhone + "</td>";
-                            tbody += "<td style='width:90px'>" + elem.properties.createTime + "</td>";
+                            tbody += "<td>" + elem.status + "</td>";
+                            tbody += "<td>" + elem.providerName + "</td>";
+                            tbody += "<td>" + elem.providerPhone + "</td>";
+                            tbody += "<td>" + elem.properties.createTime + "</td>";
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" qid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
                             tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" qid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";

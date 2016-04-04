@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Created by zhangwei on 16/1/25.
@@ -29,26 +30,59 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String User(ModelMap view) {
         User user = UserHolder.getInstance().getUser();
-        view.addAttribute(user);
+        view.addAttribute("userVo", user);
         return "user";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
     public String getEditUser(ModelMap view) {
         User user = UserHolder.getInstance().getUser();
         view.addAttribute(user);
         return "edit_user";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(UserVo userVo, HttpServletRequest request) {
+    @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+    public String editUser(UserVo userVo, HttpServletRequest request, ModelMap view) {
+        User user1 = userService.findUserByName(userVo.getUsername());
+        if (null != user1 && !user1.getId().equals(userVo.getId())) {
+            view.addAttribute("userVo", userVo);
+            return "edit_user";
+        }
+
         User user = new User();
         BeanUtils.copyProperties(userVo, user);
-        user.setAvatar(PhotoUploadUtil.uploadPhoto(userVo.getFile(), request, user.getId()));
+        user.setUpdateAt(new Date());
+        user.setIsAdmin(userVo.getAdmin());
+        user.setIsDelete(userVo.getDelete());
+        if (null == userVo.getId()) {
+            user.setCreateAt(new Date());
+            user.setIsAdmin(false);
+            userService.saveUser(user);
+        }
+        if (!userVo.getFile().isEmpty()) {
+            user.setAvatar(PhotoUploadUtil.uploadPhoto(userVo.getFile(), request, user.getId()));
+        }
         userService.updateUser(user);
-        return "redirect:edit";
+        view.addAttribute("userVo", userVo);
+        return "edit_user";
+    }
+
+    /**
+     * 我的购物车
+     */
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    public String cart() {
+        return "cart";
+    }
+
+    /**
+     * 我的订单
+     */
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String order() {
+        return "order";
     }
 }

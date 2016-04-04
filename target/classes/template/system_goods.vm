@@ -6,8 +6,7 @@
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
     <link rel="shortcut icon" href="/images/mz.png"/>
 </head>
-<body>
-<body>
+<body style="background-color: #F599BE">
     #include("./navigate.vm")
 
 <div>

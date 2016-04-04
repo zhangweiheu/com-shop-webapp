@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link rel="shortcut icon" href="/images/mz.png"/>
 </head>
-<body>
+<body style="background-color: #F599BE">
 <div align="center" style="background-color: #F599BE">
     <div style="color: black;font-size: 30px;align-content: center">编辑订单</div>
     <br/>

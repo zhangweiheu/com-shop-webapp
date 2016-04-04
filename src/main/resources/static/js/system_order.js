@@ -39,10 +39,10 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
-                            tbody += "<td width='50px'>" + elem.id + "</td>";
-                            tbody += "<td width='50px'>" + elem.userId + "</td>";
-                            tbody += "<td width='50px'>" + elem.orderPrice + "</td>";
-                            tbody += "<td width='50px'>" + elem.expressStatus + "</td>";
+                            tbody += "<td width='50px' style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
+                            tbody += "<td>" + elem.uid + "</td>";
+                            tbody += "<td>" + elem.orderPrice + "</td>";
+                            tbody += "<td>" + elem.expressStatus + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
                             tbody += "<td width='50px'><a btn-type=\"edit\" pid=\""+elem.id +"\" href=\"#\">编辑</a></td>";
                             tbody += "<td width='50px'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" pid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
