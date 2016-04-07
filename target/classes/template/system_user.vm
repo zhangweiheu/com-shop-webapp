@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>i美妆 | 用户管理</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
+    <link rel="shortcut icon" href="/images/mz.png"/>
+</head>
+<body style="background-color: #F599BE">
+    #include("./navigate.vm")
+
+<div style="font-weight: bold; margin: 0px auto; width: 90%;">
+    <span class="head-btn">
+        <a href="#" btn-type="add">
+            <img src="/images/add.png" width="20px" height="20px"/>新增</a>
+    </span>
+    <span style='position: relative;left: 50%'>支付宝绑定的手机号：</span>
+    <input id="phoneNumber" style='position: relative;width: 20%; left: 50%' required type="number" min="10000000000" maxlength="11">
+    <input style='width:10%;font-size: 15px;position: relative;left: 50%' type="button" onclick="addPass();" value="赠送">
+</div>
+
+<div>
+    <input type="hidden" id="page" value="$!{page}"/>
+    <input type="hidden" id="pageSize" value="$!{pageSize}"/>
+    <table id="user-list">
+        <thead>
+        <tr>
+            <th class='fixWid' style="border-left: 1px solid #C1DAD7">用户id</th>
+            <th>用户名</th>
+            <th>邮箱</th>
+            <th>手机号</th>
+            <th>微信号</th>
+            <th>状态</th>
+            <th>积分</th>
+            <th>创建时间</th>
+            <th>用户类型</th>
+            <th class='fixWid'>编辑</th>
+            <th class='fixWid'>删除</th>
+        </tr>
+        </thead>
+        <tbody id="system-user-tbody"></tbody>
+    </table>
+</div>
+<div id="pageArea"></div>
+
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script type="text/javascript" src="/js/system_user.js"></script>
+</body>
+</html>

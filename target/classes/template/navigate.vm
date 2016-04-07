@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link type="text/css" rel="stylesheet" href="/asset/metroJs/MetroJs.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/online.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/main.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/navigate_demo.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/navigate_main.css"/>
+    <link rel="shortcut icon" href="/images/mz.png"/>
+    <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/asset/metroJs/MetroJs.js"></script>
+    <script>
+        function goToTargetPage(tarVal) {
+            if (tarVal == 1) location.href = '/index';
+            if (tarVal == 2) location.href = '/user/cart';
+            if (tarVal == 3) location.href = '/user/order';
+            if (tarVal == 4) location.href = '/user/user';
+            if (tarVal == 5) location.href = '/system/order';
+            if (tarVal == 6) location.href = '/system/user';
+            if (tarVal == 7) location.href = '/system/goods';
+        }
+    </script>
+
+    <script>
+        $(function () {
+            // Create mobile element
+            var mobile = document.createElement('div');
+            mobile.className = 'nav-mobile';
+            document.querySelector('.nav').appendChild(mobile);
+
+            // hasClass
+            function hasClass(elem, className) {
+                return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+            }
+
+            // toggleClass
+            function toggleClass(elem, className) {
+                var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+                if (hasClass(elem, className)) {
+                    while (newClass.indexOf(' ' + className + ' ') >= 0) {
+                        newClass = newClass.replace(' ' + className + ' ', ' ');
+                    }
+                    elem.className = newClass.replace(/^\s+|\s+$/g, '');
+                } else {
+                    elem.className += ' ' + className;
+                }
+            }
+
+            // Mobile nav function
+            var mobileNav = document.querySelector('.nav-mobile');
+            var toggle = document.querySelector('.nav-list');
+            mobileNav.onclick = function () {
+                toggleClass(this, 'nav-mobile-open');
+                toggleClass(toggle, 'nav-active');
+            };
+        });
+    </script>
+    <script>
+        $(
+                function () {
+                    var nav = " <li class=\"nav-item\" onclick=\"goToTargetPage(1)\"><a>首页</a></li>" +
+                            "<li class=\"nav-item\" onclick=\"goToTargetPage(2)\"><a>我的购物车</a></li>" +
+                            "<li class=\"nav-item\" onclick=\"goToTargetPage(3)\"><a>我的订单</a></li>" +
+                            "<li class=\"nav-item\" onclick=\"goToTargetPage(4)\"><a>我的资料</a></li>";
+                    if (document.cookie.length > 0) {
+                        c_start = document.cookie.indexOf("_lpc=");
+                        if (c_start != -1) {
+                            c_start = c_start + "_lpc".length + 1;
+                            c_end = document.cookie.indexOf(";", c_start);
+                            if (c_end == -1) c_end = document.cookie.length
+                            if (unescape(document.cookie.substring(c_start, c_end)) == "T") {
+                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(5)\"><a>系统订单管理</a></li>";
+                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(6)\"><a>系统用户管理</a></li>";
+                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(7)\"><a>系统商品管理</a></li>";
+                            }
+                        }
+                    }
+                    $("#nav").html(nav);
+                }
+        );
+    </script>
+</head>
+<body>
+<div style="text-align: center;-webkit-perspective: 1000">
+    <div class="main" style="margin-bottom: 0px;margin-top: 10px">
+        <nav class="nav">
+            <ul class="nav-list">
+                <div id="nav"></div>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+</body>
+</html>

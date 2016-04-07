@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>i美妆 | 登陆</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/online.css"/>
+    <link rel="shortcut icon" href="/images/mz.png"/>
+</head>
+<body style="background-color: #F599BE">
+<div id="particles-js"></div>
+<section class="wrapper">
+    <div class="main-window" align="center">
+        <div class="main-title">i美妆登陆</div>
+        <br/>
+        <div>
+            <a style="color: #0f0f0f;font-size: 15px;position: absolute;right: 50px;top: 50px" href="/register">注册</a>
+        </div>
+        <form class="main-form" method="post" action="/login" onsubmit="return md5password();">
+            <div class="formfont">用户名：
+                <input id="username" name="username" placeholder="请输入用户名"
+                       type="text" autofocus required/>
+            </div>
+            <div class="formfont">密&nbsp;&nbsp;&nbsp;&nbsp;码：
+                <input id="password" name="password" placeholder="请输入密码"
+                       type="password" value="" required/>
+            </div>
+            <div id="captcha"></div>
+            <div style="float: left;color: #0f0f0f;position: absolute;left: 30px">
+                <p><input id="isSavePassword" type="checkbox" class="formfont"/>保存密码</p>
+            </div>
+            <div class="formfont" style="float: right;position: absolute;right: 30px">
+                <a style="color: #0f0f0f" href="">忘记密码？</a>
+            </div>
+            <br/>
+            <input id="submit_btn" class="btn input-submit" disabled="disabled" type="submit" value="登陆"
+                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px"/>
+        </form>
+    </div>
+</section>
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="/js/particles.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script type="text/javascript" src="/js/bg.js"></script>
+<script type="text/javascript" src="/js/seccode.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+</body>
+</html>

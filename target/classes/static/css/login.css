@@ -1,0 +1,24 @@
+
+#particles-js {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper .main-title {
+    color: black;
+    font-size: 30px;
+    align-content: center;
+}
+
+.wrapper .main-form .formfont {
+    color: black;
+    font-size: 15px;
+}
+.gt_holder .gt_slider {
+    height: 28px;
+    width: 261px;
+    background-position: 0 0;
+    position: relative;
+    left: 0;
+    overflow: visible;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>i美妆 | 编辑商品</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="/images/mz.png"/>
+</head>
+<body style="background-color: #F599BE">
+<div align="center" style="background-color: #F599BE">
+    <div style="color: black;font-size: 30px;align-content: center">编辑商品</div>
+    <br/>
+    <form class="form-horizontal" action="/api/system/goods" method="post" enctype="multipart/form-data">
+        <input id="id" name="id" type="hidden" value="$!{goodsVo.id}">
+
+        <div style="color: black;font-size: 15px">上传商品图片：
+            <img width="20%" height="20%" src="$!{goodsVo.linkPhoto}">
+            <input id="file" type="file" name="file" placeholder="选择图片...">
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="name">名称</label>
+            <div class="controls">
+                <input id="name" name="name" style="width: 40%;height: 40px" type="text" value="$!{goodsVo.name}" required/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="price">价格</label>
+            <div class="controls">
+                <input id="price" name="price" style="width: 40%;height: 40px" type="text" value="$!{goodsVo.price}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="remain">存货量</label>
+            <div class="controls">
+                <input id="remain" name="remain" style="width: 40%;height: 40px" type="text" value="$!{goodsVo.remain}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="discount">折扣</label>
+            <div class="controls">
+                <input id="discount" name="discount" style="width: 40%;height: 40px" type="number" value="$!{goodsVo.discount}" max="10" min="1"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="status">状态</label>
+            <div>
+                #if("REMOVE_SUPPORT" == $!{goodsVo.status})
+                    <select id="status" name="status" style="width:95px;" required>
+                        <option name="status" value="NORMAL">正常</option>
+                        <option name="status" value="REMOVE_SUPPORT" selected>已删除</option>
+                    </select>
+                #else
+                    <select id="status" name="status" style="width:95px;" required>
+                        <option name="status" value="NORMAL" selected>正常</option>
+                        <option name="status" value="REMOVE_SUPPORT">已下架</option>
+                    </select>
+                #end
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="providerName">供货商</label>
+            <div class="controls">
+                <input id="providerName" name="providerName" style="width: 40%;height: 40px" type="text" value="$!{goodsVo.providerName}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="providerPhone">供货商电话</label>
+            <div class="controls">
+                <input id="providerPhone" name="providerPhone" style="width: 40%;height: 40px" type="text" value="$!{goodsVo.providerPhone}"/>
+            </div>
+        </div>
+
+        <div>
+            <input id="save-btn" type="submit" value="保存"/>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+</body>
+</html>

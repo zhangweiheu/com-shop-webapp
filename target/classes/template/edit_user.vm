@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>i美妆 | 用户编辑</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
+    <link rel="shortcut icon" href="/images/mz.png"/>
+</head>
+<body style="background-color: #F599BE">
+<div class="container-fluid" align="center" style="background-color: #F599BE">
+    <div style="color: black;font-size: 30px;align-content: center">编辑用户</div>
+    <br/>
+    <form class="form-horizontal" action="/user/user/edit" method="post" enctype="multipart/form-data">
+        <input id="id" name="id" type="hidden" value="$!{userVo.id}">
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="username">用户名：</label>
+            <div class="controls">
+                <input id="username" style="width: 40%;height: 40px"
+                       name="username" placeholder="请输入用户名"
+                       type="text" value="$!{userVo.username}" required/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="password">密码：</label>
+            <div class="controls">
+                <input id="password" style="width: 40%;height: 40px"
+                       name="password" placeholder="请输入密码" type="text"
+                       value="$!{userVo.password}" required onchange="md5password();"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="phone">手机号：</label>
+            <div class="controls">
+                <input id="phone" style="width: 40%;height: 40px"
+                       name="phone" placeholder="请输入手机号" type="text"
+                       value="$!{userVo.phone}"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="email">邮箱：</label>
+            <div class="controls">
+                <input id="email" style="width: 40%;height: 40px"
+                       name="email" placeholder="请输入邮箱" type="email"
+                       value="$!{userVo.email}"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="wechat">微信号：</label>
+            <div class="controls">
+                <input id="wechat" style="width: 40%;height: 40px"
+                       name="wechat" placeholder="请输入微信号"
+                       type="text" value="$!{userVo.wechat}"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="isDelete">用户状态：</label>
+            <div class="controls">
+                #if ($userVo.delete)
+                    正常<input type="radio" id="isDelete" name="delete" value="0" style="width: 10%;height: 20px;" />
+                    已删除<input type="radio" id="isDelete" name="delete" value="1" style="width: 10%;height: 20px;" checked/>
+                #else
+                    正常<input type="radio" id="isDelete" name="delete" value="0" style="width: 10%;height: 20px;" checked/>
+                    已删除<input type="radio" id="isDelete" name="delete" value="1" style="width: 10%;height: 20px;"/>
+                #end
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="isAdmin">用户类型：</label>
+            <div class="controls">
+                #if ($userVo.admin)
+                    普通用户<input type="radio" id="isAdmin" name="admin" value="0" style="width: 10%;height: 20px;"/>
+                    管理员<input type="radio" id="isAdmin" name="admin" value="1" style="width: 10%;height: 20px;" checked/>
+                #else
+                    普通用户<input type="radio" id="isAdmin" name="admin" value="0" style="width: 10%;height: 20px;" checked/>
+                    管理员<input type="radio" id="isAdmin" name="admin" value="1" style="width: 10%;height: 20px;"/>
+                #end
+            </div>
+        </div>
+        <div style="color: black;font-size: 15px">上传头像：
+            <img width="20%" height="20%" src="$!{userVo.avatar}">
+            <input id="file" type="file" style="width: 40%;height: 40px;border-radius: 10px" name="file" placeholder="选择头像..."
+                   value="$!{userVo.avatar}">
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="intro">个人简介：</label>
+            <div class="controls">
+                <input id="intro" style="width: 40%;height: 40px"
+                       name="intro" placeholder="请简单介绍一下自己"
+                       type="text" value="$!{userVo.intro}"/>
+            </div>
+        </div>
+
+        <div>
+            <input id="save-btn" type="submit" value="保存"/>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="/asset/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/particles.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script>
+    function md5password() {
+        $("#password").val($.md5($("#password").val()));
+        return true;
+    }
+</script>
+</body>
+</html>
